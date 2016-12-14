@@ -1,0 +1,13 @@
+[2J[0;0f
+--------
+Welcome to xflux (f.lux for X)
+This will only work if you're running X on console.
+
+Guessing your longitude is 15.0 based on your timezone
+Specify it with -g to make things better.
+Found 1 screen.
+Your location (lat, long) is 38.0, 15.0
+
+Your night-time color temperature is 3400
+Going to background: 'kill 30444' to turn off.
+
