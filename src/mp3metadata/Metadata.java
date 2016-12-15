@@ -8,23 +8,39 @@ import org.farng.mp3.MP3File;
 import org.farng.mp3.TagException;
 import org.farng.mp3.id3.AbstractID3v2;
 
-
-
 public class Metadata {
     
-    private ArrayList<MP3File> lMP3s;
+    private ArrayList lMP3s;
 
     public Metadata(String musicFolder) throws IOException, TagException {
-        File lFiles[]=new File(musicFolder).listFiles();
         lMP3s= new ArrayList<>();
-        for (int i = 0; i < lFiles.length; i++) {
-            lMP3s.add(new MP3File(lFiles[i]));
-        }        
+//        algo(musicFolder);
     }
 
+    public void algo(String musicFolder) throws IOException, TagException{
+        System.out.println(musicFolder);
+        String lFiles[]=new File(musicFolder).list();
+        
+        for (String lFile : lFiles) {
+            
+            if(lFile.endsWith(".mp3") || lFile.endsWith(".flac") ||lFile.endsWith(".aiff")){
+//                System.out.println("Archivo mp3: "+musicFolder+"\\"+lFile);
+                String pahtSong=musicFolder+"\\"+lFile;
+                pahtSong=pahtSong.replace("(", "**(");
+                pahtSong=pahtSong.replace(")", "**)");
+                lMP3s.add(new MP3File(new File(pahtSong)));
+//                System.out.println(new MP3File(new File(musicFolder+lFile)).getFilenameTag().getSongTitle());
+            }
+            else{
+//                System.out.println("ruta para el recursivo : "+musicFolder+"\\"+lFile);
+                algo(musicFolder+"\\"+lFile);
+            }
+        }
+    }
     public ArrayList<MP3File> getlMP3s() {
         return lMP3s;
     }
+
     
     
     private enum tagType{AlbumTitle, SongComment, AuthorComposer,

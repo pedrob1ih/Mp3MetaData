@@ -12,26 +12,20 @@ public class Mp3MetaData {
 
         public static void main(String[] args) {
         try {
-            Metadata m= new Metadata("D:\\musica\\penCoche\\nuevas");
+            Metadata m = new Metadata("D:\\musica\\ITunesMusic\\Music");
+            m.algo("D:\\musica\\ITunesMusic\\Music");
             for (MP3File mp3 : m.getlMP3s()) {
-                System.out.println(mp3.getMp3file().toPath());
+                System.out.println(mp3.getMp3file().toPath().toString());
             }
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
+
+//            Metadata m= new Metadata("D:\\musica\\penCoche\\nuevas");
+//            for (MP3File mp3 : m.getlMP3s()) {
+//                System.out.println(mp3.getMp3file().toPath());
+//            }
+
 //            File song =new File("cancion.mp3");
 //            org.farng.mp3.MP3File mp3= new MP3File(song);
 //            Metadata.showTags(mp3);
