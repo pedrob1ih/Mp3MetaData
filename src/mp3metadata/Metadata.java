@@ -8,38 +8,53 @@ import org.farng.mp3.MP3File;
 import org.farng.mp3.TagException;
 import org.farng.mp3.id3.AbstractID3v2;
 
+
 public class Metadata {
     
-    private ArrayList lMP3s;
+    private ArrayList<MP3File> lMP3s;
+    private String musicFolder;
+    private ThreadMetadata tM;
 
-    public Metadata(String musicFolder) throws IOException, TagException {
-        lMP3s= new ArrayList<>();
-//        algo(musicFolder);
+    public Metadata( String musicFolder) {
+        this.lMP3s = new ArrayList();
+        this.musicFolder = musicFolder;
+        this.tM= new ThreadMetadata(this);
     }
 
-    public void algo(String musicFolder) throws IOException, TagException{
-        System.out.println(musicFolder);
+    
+
+    public void algo() throws IOException, TagException{
         String lFiles[]=new File(musicFolder).list();
         
         for (String lFile : lFiles) {
-            
-            if(lFile.endsWith(".mp3") || lFile.endsWith(".flac") ||lFile.endsWith(".aiff")){
-//                System.out.println("Archivo mp3: "+musicFolder+"\\"+lFile);
+            if(lFile.endsWith(".mp3") || lFile.endsWith(".flac") ||lFile.endsWith(".aiff")|| lFile.endsWith(".m4a")||lFile.endsWith(".wav")){
                 String pahtSong=musicFolder+"\\"+lFile;
-                pahtSong=pahtSong.replace("(", "**(");
-                pahtSong=pahtSong.replace(")", "**)");
+//                pahtSong=pahtSong.replace("(", "\\(");
+//                pahtSong=pahtSong.replace(")", "\\)");
                 lMP3s.add(new MP3File(new File(pahtSong)));
-//                System.out.println(new MP3File(new File(musicFolder+lFile)).getFilenameTag().getSongTitle());
             }
             else{
-//                System.out.println("ruta para el recursivo : "+musicFolder+"\\"+lFile);
                 algo(musicFolder+"\\"+lFile);
             }
         }
     }
-    public ArrayList<MP3File> getlMP3s() {
-        return lMP3s;
+    public void algo(String musicFolder) throws IOException, TagException{
+        String lFiles[]=new File(musicFolder).list();
+        
+        for (String lFile : lFiles) {
+            if(lFile.endsWith(".mp3") || lFile.endsWith(".flac") ||lFile.endsWith(".aiff")|| lFile.endsWith(".m4a")||lFile.endsWith(".wav")){
+                String pahtSong=musicFolder+"\\"+lFile;
+//                pahtSong=pahtSong.replace("(", "\\(");
+//                pahtSong=pahtSong.replace(")", "\\)");
+                System.out.println("paht "+pahtSong);
+                lMP3s.add(new MP3File(new File(pahtSong)));
+            }
+            else{
+                algo(musicFolder+"\\"+lFile);
+            }
+        }
     }
+    
 
     
     
@@ -132,4 +147,9 @@ public class Metadata {
         
     }
     
+    public ArrayList<MP3File> getlMP3s() throws InterruptedException {
+        while(tM.isAlive())
+            Thread.sleep(200);
+        return lMP3s;
+    }
 }
