@@ -17,7 +17,7 @@ public class ThreadMetadata extends Thread{
     public void run() {
         try {
             super.run(); //To change body of generated methods, choose Tools | Templates.
-            m.algo();
+            m.scanMp3();
         } catch (IOException ex) {
             Logger.getLogger(ThreadMetadata.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TagException ex) {

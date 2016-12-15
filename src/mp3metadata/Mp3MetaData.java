@@ -11,7 +11,6 @@ public class Mp3MetaData {
         public static void main(String[] args) throws InterruptedException {
         try {
             Metadata m = new Metadata("C:\\Users\\pedro\\Desktop\\caperta");
-            System.out.println("hola");
             for (MP3File mp3 : m.getlMP3s()) {
                 System.out.println(mp3.getID3v2Tag().getSongGenre());
             }
